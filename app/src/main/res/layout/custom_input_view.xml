@@ -1,0 +1,15 @@
+<!-- res/layout/custom_input_view.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- Define your keyboard keys here. For simplicity, we'll just add a single key -->
+    <Button
+        android:id="@+id/key_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A" />
+
+    <!-- Add additional keys as necessary -->
+</LinearLayout>
