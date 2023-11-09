@@ -18,29 +18,43 @@ import java.util.HashMap;
 
 public class CustomKeyboardService extends InputMethodService {
     private final HashMap<Character, Bitmap> characterBitmaps = new HashMap<>();
+    private final HashMap<Character, Button> characterButtons = new HashMap<>();
     private LinearLayout keyboardLayout;
     private WindowManager windowManager;
     private DrawingView drawingView;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        drawingView = new DrawingView(this);
-    }
+    private char currentCharacter;
 
     @Override
     public View onCreateInputView() {
+        // Initialize windowManager
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+        // Choose either DrawingView or Keyboard Layout based on your use case
+        drawingView = new DrawingView(this, null);
+        return drawingView; // For Drawing View
+        // return createKeyboardLayout(); // For Keyboard Layout
+    }
+
+    private View createKeyboardLayout() {
         keyboardLayout = new LinearLayout(this);
         keyboardLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Example for adding A-Z buttons, you should add all necessary buttons similarly
         for (char c = 'A'; c <= 'Z'; c++) {
             Button keyButton = createKeyButton(c);
             keyboardLayout.addView(keyButton);
+            characterButtons.put(c, keyButton); // Store the button for later use
         }
 
         return keyboardLayout;
+    }
+
+    private Bitmap loadBitmapFromStorage(String filename) {
+        try (FileInputStream in = openFileInput(filename)) {
+            return BitmapFactory.decodeStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private Button createKeyButton(final char character) {
@@ -55,7 +69,7 @@ public class CustomKeyboardService extends InputMethodService {
             getCurrentInputConnection().commitText(String.valueOf(character), 1);
         });
 
-        Bitmap bitmap = loadBitmapFromStorage(character);
+        Bitmap bitmap = loadBitmapFromStorage("key_" + character + ".png");
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(getResources(), bitmap);
             keyButton.setBackground(drawable);
@@ -63,6 +77,8 @@ public class CustomKeyboardService extends InputMethodService {
 
         return keyButton;
     }
+
+
 
     private void showDrawingView(char character) {
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -80,6 +96,8 @@ public class CustomKeyboardService extends InputMethodService {
 
         windowManager.addView(drawingView, params);
     }
+
+
 
     private void saveCharacterBitmap(Bitmap bitmap, char character) {
         String filename = "key_" + character + ".png";
@@ -100,8 +118,7 @@ public class CustomKeyboardService extends InputMethodService {
     }
 
     private Button findButtonByCharacter(char character) {
-        // Implement this method based on your button storage logic
-        return null; // Placeholder
+        return characterButtons.get(character); // Retrieve the button associated with the character
     }
 
     private Bitmap loadBitmapFromStorage(char character) {
@@ -113,4 +130,6 @@ public class CustomKeyboardService extends InputMethodService {
             return null;
         }
     }
+
+
 }

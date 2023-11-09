@@ -1,28 +1,22 @@
-<!-- activity_home.xml in res/layout/ -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
-    android:background="#abdbe3"
-    >
-
-    <TextView
-        android:id="@+id/tvHome"
-        android:layout_width="383dp"
-        android:layout_height="wrap_content"
-        android:text="welcome to drip! an app to customise your phone"
-        android:fontFamily="monospace"
-        android:textAlignment="center"
-        />
+    android:gravity="center">
 
     <Button
         android:id="@+id/btnCreateCustomKeyboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="create custom keyboard"
-        android:backgroundTint="@color/black"
-        android:fontFamily="monospace"
-        />
+        android:text="Create Custom Keyboard"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnEnableKeyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable My Custom Keyboard"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

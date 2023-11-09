@@ -1,3 +1,9 @@
 <resources>
+
     <string name="app_name">Drip</string>
+    <string-array name="keyboard_keys">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
 </resources>

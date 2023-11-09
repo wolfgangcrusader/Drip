@@ -31,6 +31,9 @@
         <activity android:name=".DrawingView">
         </activity>
 
+        <activity android:name=".KeyboardCreationActivity">
+        </activity>
+
         <service
             android:name=".CustomKeyboardService"
             android:label="Drip Keyboard"
